@@ -11,6 +11,9 @@ jobs:
   build-and-test:
     name: Build y pruebas
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: minishop
 
     steps:
       - name: 1 - Descargar el codigo
@@ -38,20 +41,23 @@ jobs:
         with:
           name: reportes-pruebas
           path: |
-            target/surefire-reports/
-            target/failsafe-reports/
+            minishop/target/surefire-reports/
+            minishop/target/failsafe-reports/
 
       - name: 7 - Guardar el JAR
         uses: actions/upload-artifact@v4
         with:
           name: minishop-jar
-          path: target/*.jar
+          path: minishop/target/*.jar
 
   release:
     name: Publicar version
     needs: build-and-test
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: minishop
 
     permissions:
       contents: write
@@ -71,4 +77,4 @@ jobs:
       - name: Publicar Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" target/*.jar --title "MiniShop $GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" minishop/target/*.jar --title "MiniShop $GITHUB_REF_NAME" --generate-notes
