@@ -12,7 +12,7 @@ public class ProductService {
     private final ProductRepository repository;
 
     public Product save(Product product) {
-        if (product.getPrice() == null || !Double.isFinite(product.getPrice()) || product.getPrice() <= 0) {
+        if (product.getPrice() == null || !Double.isFinite(product.getPrice()) || product.getPrice() < 0) {
             throw new IllegalArgumentException("El precio debe ser mayor a cero");
         }
         if (product.getStock() == null || product.getStock() < 0) {
