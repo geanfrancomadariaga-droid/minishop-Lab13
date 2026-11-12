@@ -1,0 +1,29 @@
+target/
+*.class
+*.log
+!evidencias/*.log
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# Archivos generados por Maven
+target/
+maven-cache/
+.m2/
+target-tmp/
+
+# Configuraciones locales
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# Archivos temporales
+*.class
+*.tmp
